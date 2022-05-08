@@ -1,0 +1,29 @@
+---
+
+- name: install apache
+  apt:
+    name: apache2
+
+- name: configure apache
+  template:
+    src: config.j2
+    dest: /etc/apache2/sites-available/000-default.conf
+    mode: 0644
+  when: updatecfg | default(true)
+  register: cfgchanged
+
+- name: debug
+  debug:
+    var: cfgchanged
+    verbosity: 1
+
+- name: ensure apache service state
+  service:
+    name: apache2
+    state: "{% if cfgchanged.changed %}restarted{% else %}started{% endif %}"
+
+- name: check apache port 80 is listening
+  wait_for:
+    port: 80
+    timeout: 2
+    msg: "Timeout waiting for 80 to respond"
