@@ -28,7 +28,7 @@ RUNNING HANDLER [testservicenormal : restart apache2]
 
 ## try to ensure the service is running
 So we can try to extend the role by ensuring the service is started at the end of the run
-``ỳaml
+```yaml
   service:
     state: started
 ```
