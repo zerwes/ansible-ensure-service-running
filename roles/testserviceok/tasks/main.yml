@@ -20,7 +20,7 @@
 - name: register apache2 desired state
   set_fact:
     apache_service_state: restarted
-  when: cfgchanged.changed | default(false)
+  when: cfgchanged.changed | default(false)  # noqa no-handler
 
 - name: ensure apache service state is {{ apache_service_state | default('started') }}
   service:
