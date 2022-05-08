@@ -1,0 +1,7 @@
+---
+
+- name: run
+  hosts: all
+  roles:
+    - role: testservicewarn
+      when: "'testgroup' in group_names"
