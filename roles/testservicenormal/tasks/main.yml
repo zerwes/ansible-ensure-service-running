@@ -4,7 +4,7 @@
   apt:
     name: apache2
 
-- name: stop apache to demonstrate double service starts
+- name: stop apache for demonstration purposes
   service:
     name: apache2
     state: stopped
