@@ -17,11 +17,6 @@
   when: updatecfg | default(true) | bool
   register: cfgchanged
 
-- name: debug
-  debug:
-    var: cfgchanged
-    verbosity: 1
-
 - name: register apache2 desired state
   set_fact:
     apache_service_state: restarted
