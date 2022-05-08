@@ -16,12 +16,12 @@ sample roles:
 
 ## the ansiblish way
 Using handlers is the common ansible way, but handlers are run at the end of a play, so if subsequent roles rely on the service to be up and running this might be problematic, as the handler will not been run inbetween ...
-```
+```diff
 TASK [testservicenormal : configure apache] ***********************************************************************************************************************************************************************
 changed: [testhost]
 
 TASK [testservice : check apache is listening on port 80] *********************************************************************************************************************************************************
-fatal: [testhost]: FAILED! => {"changed": false, "elapsed": 2, "msg": "Timeout waiting for 80 to respond"}
+-fatal: [testhost]: FAILED! => {"changed": false, "elapsed": 2, "msg": "Timeout waiting for 80 to respond"}
 
 RUNNING HANDLER [testservicenormal : restart apache2]
 ```
@@ -49,9 +49,9 @@ and some services can take ages for restarting ...
 So one can think: OK, LGTM, but in order to avoid the double (re)starts, we can call `flush_handlers` before ensuring the service is started ...
 This is where the effect of https://github.com/ansible/ansible/issues/41313 comes in.
 Unfortunately `flush_handlers` is a meta task and this will issue a warning if called conditionally.
-```
+```diff
 TASK [testservicewarn : run all notified handlers at this point] **************************************************************************************************************************************************
-[WARNING]: flush_handlers task does not support when conditional
+@@[WARNING]: flush_handlers task does not support when conditional@@
 
 RUNNING HANDLER [testservicewarn : restart apache2] ***************************************************************************************************************************************************************
 changed: [testhost]
