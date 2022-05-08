@@ -1,0 +1,8 @@
+---
+
+- name: run
+  hosts: all
+  roles:
+    - role: testservicetestservicenormal
+      when: "'testgroup' in group_names"
+    - role: testservice
