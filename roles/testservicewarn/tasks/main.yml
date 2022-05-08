@@ -4,6 +4,11 @@
   apt:
     name: apache2
 
+- name: stop apache to demonstrate double service starts
+  service:
+    name: apache2
+    state: stopped
+
 - name: configure apache
   template:
     src: config.j2
@@ -19,9 +24,3 @@
   service:
     name: apache2
     state: started
-
-- name: check apache is listening on port 80
-  wait_for:
-    port: 80
-    timeout: 2
-    msg: "Timeout waiting for 80 to respond"
