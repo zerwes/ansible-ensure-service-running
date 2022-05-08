@@ -5,3 +5,4 @@
   roles:
     - role: testserviceok
       when: "'testgroup' in group_names"
+    - role: testservice
