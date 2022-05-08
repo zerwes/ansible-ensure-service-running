@@ -85,6 +85,20 @@ or you can register the state after a task triggering a restart as fact
   service:
     state: "{{ apache_service_state | default('started') }}"
 ```
+resulting in
+```
+TASK [testserviceok : configure apache] ***************************************************************************************************************************************************************************
+changed: [testhost]
+
+TASK [testserviceok : register apache2 desired state] *************************************************************************************************************************************************************
+ok: [testhost]
+
+TASK [testserviceok : ensure apache service state is restarted] ***************************************************************************************************************************************************
+changed: [testhost]
+
+TASK [testservice : check apache is listening on port 80] *********************************************************************************************************************************************************
+ok: [testhost]
+```
 
 So, the last step seems to bring us to the desired state, yeah, but ... ah, wait, I promised you that all solutions will have some caveats ... here ansible-lint will complain
 ```
