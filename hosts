@@ -1,0 +1,2 @@
+[testgroup]
+testhost ansible_host=172.31.255.3
