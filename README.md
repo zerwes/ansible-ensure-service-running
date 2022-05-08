@@ -101,7 +101,7 @@ ok: [testhost]
 ```
 
 So, the last step seems to bring us to the desired state, yeah, but ... ah, wait, I promised you that all solutions will have some caveats ... here ansible-lint will complain
-```
+```diff
 !no-handler: Tasks that run when changed should likely be handlers
 ```
 
