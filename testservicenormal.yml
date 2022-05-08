@@ -3,6 +3,6 @@
 - name: run
   hosts: all
   roles:
-    - role: testservicetestservicenormal
+    - role: testservicenormal
       when: "'testgroup' in group_names"
     - role: testservice
