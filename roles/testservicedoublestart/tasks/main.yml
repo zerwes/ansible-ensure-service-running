@@ -21,9 +21,3 @@
   service:
     name: apache2
     state: started
-
-- name: check apache is listening on port 80
-  wait_for:
-    port: 80
-    timeout: 2
-    msg: "Timeout waiting for 80 to respond"
