@@ -1,6 +1,6 @@
 <VirtualHost *:80>
-        # created {{ ansible_date_time.iso8601 }}
-	# will trigger changed event
+        # created {{ ansible_date_time.iso8601 }}{{ additionalstuff | default('') }}
+        # will trigger changed event
 
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/html
