@@ -1,12 +1,10 @@
 # ansible: restart and/or ensure a service is running
 
 From my way of understanding, a configuration management and provisioning tool should leave a host in the desired and described state.
-So, if a ansible role is about 'configure service xyz', at the end of a playbook run the target host should have the service set up with the desired configuration and the service should be up and running as long as the configuration has no errors.
+So, if a ansible role is about ***configure service xyz***, at the end of a playbook run the target host should have the service set up with the desired configuration and the service should be up and running as long as the configuration has no errors. And a role should be completely conditional!
 
-And a role should be completely conditional!
-
-In order to demonstrate the not-so-easy-way to accomplish this with ansible, I created different sample roles here ... all with some caveats and shortcomings, especially if the service in question is not running on the start of the playbook.
-During a common deploy all might seem simple. But during tests a service might not be running on the start of the playbook due to a manual stop before, a test deploy wit a broken config etc ... and here many playbools fail and finally do not leave you with a configured and running service at the end.
+In order to demonstrate the (not-so-easy and not-so-obviously) way to accomplish this with ansible, I created different sample roles here ... all with some caveats and shortcomings, especially if the service in question is not running on the start of the playbook.
+During a common deploy all might seem simple. But during tests a service might not be running on the start of the playbook due to a manual stop before, a test deploy with a broken config, etc... and here many playbools fail and finally do not leave you with a configured and running service at the end.
 
 sample roles:
  * `testservicenormal` - the ansiblish way : just call a handler
@@ -25,6 +23,12 @@ TASK [testservice : check apache is listening on port 80] **********************
 
 RUNNING HANDLER [testservicenormal : restart apache2]
 ```
+
+Another problem with handlers not beeing run at the end of a role, is that the trigger of a restart will be lost if a subsequent role will fail. Imagine:
+ * role _x_ changes the connfig of a service and trigger a restart
+ * role _y_ executed after _x_ fails, the play ends
+ * you fix the problem in _y_ and start a new run, but _x_ is finished and will make any changes, thus no restart of the service in _x_ will be triggered
+ * finally your play is done, but the service in _x_ is **not** running with the desired config, as it was not restarted/reloaded
 
 ## try to ensure the service is running
 So we can try to extend the role by ensuring the service is started at the end of the run
@@ -59,7 +63,7 @@ changed: [testhost]
 TASK [testservicewarn : ensure apache service state is started] ***************************************************************************************************************************************************
 ok: [testhost]
 ```
-All fine and as expected, but the f*... warning is annoying ...
+All fine and as expected, but the f... warning is annoying ...
 
 ## register the desired state of the service and apply it
 So, if the handlers make problems, we can register a required restart of the service and on the end ensure the service has the desired state, something like
