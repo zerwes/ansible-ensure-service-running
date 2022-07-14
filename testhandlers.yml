@@ -8,7 +8,7 @@
     - role: r2
     - role: r3
 
-# here the nadlers of the first role will be run at the end of the role
+# here the handlers of each role will be run at the end of the role itself
 - name: run with flushhandlers
   hosts: all
   roles:
