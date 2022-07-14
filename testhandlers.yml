@@ -1,0 +1,16 @@
+---
+
+# all handlers will run at the end of the play
+- name: run normal
+  hosts: all
+  roles:
+    - role: r1
+    - role: r2
+
+# here the nadlers of the first role will be run at the end of the role
+- name: run with flushhandlers
+  hosts: all
+  roles:
+    - role: r1
+    - flushhandlers
+    - role: r2

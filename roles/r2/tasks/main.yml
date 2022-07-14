@@ -1,0 +1,6 @@
+---
+- name: do and notify
+  debug:
+    msg: task in {{ ansible_role_name }}
+  changed_when: true
+  notify: h2

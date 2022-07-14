@@ -1,0 +1,4 @@
+---
+
+- name: run all notified handlers at this point
+  meta: flush_handlers

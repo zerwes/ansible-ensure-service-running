@@ -1,0 +1,5 @@
+---
+
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#running-a-role-multiple-times-in-one-playbook
+
+allow_duplicates: true

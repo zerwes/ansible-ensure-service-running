@@ -30,6 +30,8 @@ Another problem with handlers not beeing run at the end of a role, is that the t
  * you fix the problem in _y_ and start a new run, but _x_ is finished and will make any changes, thus no restart of the service in _x_ will be triggered
  * finally your play is done, but the service in _x_ is **not** running with the desired config, as it was not restarted/reloaded
 
+Here it might be helpfull to run the handlers after each role and not at the end of the role section ([see here](https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run)). See [testhandlers.yml](testhandlers.yml)
+
 ## try to ensure the service is running
 So we can try to extend the role by ensuring the service is started at the end of the run
 ```yaml
