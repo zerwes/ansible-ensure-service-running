@@ -1,0 +1,4 @@
+---
+- name: h3
+  debug:
+    msg: handler in {{ ansible_role_name }}

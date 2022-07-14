@@ -6,6 +6,7 @@
   roles:
     - role: r1
     - role: r2
+    - role: r3
 
 # here the nadlers of the first role will be run at the end of the role
 - name: run with flushhandlers
@@ -14,3 +15,5 @@
     - role: r1
     - flushhandlers
     - role: r2
+    - flushhandlers
+    - role: r3
